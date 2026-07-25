@@ -126,6 +126,8 @@ async function sendMessage(text) {
   addMessage("user", text).textContent = text;
   history.push({ role: "user", content: text });
 
+  const trimmedHistory = [history[0], ...history.slice(-6)];
+
   const bodyEl = addMessage("ai", "");
   const cursor = document.createElement("span");
   cursor.className = "cursor-blink";
@@ -144,10 +146,11 @@ async function sendMessage(text) {
   });
 
   try {
-    const output = await generator(history, {
-      max_new_tokens: 256,
+    const output = await generator(trimmedHistory, {
+      max_new_tokens: 200,
       do_sample: false,
-      repetition_penalty: 1.15,
+      repetition_penalty: 1.3,
+      no_repeat_ngram_size: 4,
       streamer,
     });
     const full = output[0].generated_text;
