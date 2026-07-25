@@ -145,10 +145,12 @@ async function sendMessage(text) {
 
   try {
     const output = await generator(history, {
-      max_new_tokens: 512,
-      temperature: 0.6,
+      max_new_tokens: 400,
+      temperature: 0.4,
       top_p: 0.9,
       do_sample: true,
+      repetition_penalty: 1.3,
+      no_repeat_ngram_size: 3,
       streamer,
     });
     const full = output[0].generated_text;
