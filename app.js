@@ -66,7 +66,7 @@ async function loadModel() {
   try {
     generator = await pipeline("text-generation", MODEL_ID, {
       device,
-      dtype: device === "webgpu" ? "q4f16" : "q8",
+      dtype: "q4",
       progress_callback: progressCallback,
     });
 
