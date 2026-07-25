@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  --bg: #12100d;
+  --bg-raised: #1a1712;
+  --amber: #ffb000;
+  --amber-dim: #a8760a;
+  --amber-faint: #6b4f1a;
+  --green: #7ee787;
+  --red: #ff6b5e;
+  --text: #f3e9d2;
+  --border: #3a2f1c;
+  --radius: 3px;
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.crt{
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  max-width: 760px;
+  margin: 0 auto;
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.015) 0px,
+      rgba(255,255,255,0.015) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+.topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand-glyph{
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  color: var(--amber);
+  font-size: 18px;
+}
+.brand-name{
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.status{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--amber-dim);
+  text-transform: lowercase;
+}
+.dot{
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--amber-faint);
+  box-shadow: none;
+}
+.dot.ready{ background: var(--green); box-shadow: 0 0 6px var(--green); }
+.dot.busy{ background: var(--amber); box-shadow: 0 0 6px var(--amber); animation: pulse 1.1s ease-in-out infinite; }
+@keyframes pulse{ 50%{ opacity: 0.35; } }
+
+.screen{
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.boot{
+  margin: auto 0;
+  max-width: 480px;
+}
+.boot-line{
+  margin: 0 0 10px;
+  line-height: 1.6;
+  font-size: 14px;
+}
+.boot-line.dim{ color: var(--amber-dim); font-size: 13px; }
+
+.load-btn{
+  margin-top: 18px;
+  background: transparent;
+  color: var(--amber);
+  border: 1px solid var(--amber-dim);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.load-btn:hover{ background: var(--amber); color: #12100d; }
+.load-btn:disabled{ opacity: 0.4; cursor: default; background: transparent; color: var(--amber); }
+
+.progress-wrap{ margin-top: 20px; }
+.progress-track{
+  height: 4px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill{
+  height: 100%;
+  width: 0%;
+  background: var(--amber);
+  transition: width 0.2s ease;
+}
+.progress-label{
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--amber-dim);
+}
+
+.chat{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+}
+
+.msg{ max-width: 100%; }
+.msg .who{
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 5px;
+}
+.msg.user .who{ color: var(--amber-dim); }
+.msg.ai .who{ color: var(--green); }
+.msg .body{
+  font-size: 14px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.msg pre{
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+.msg code{ font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
+.msg .body > code{
+  background: var(--bg-raised);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+.cursor-blink{
+  display: inline-block;
+  width: 7px; height: 14px;
+  background: var(--amber);
+  margin-left: 2px;
+  animation: blink 0.9s steps(1) infinite;
+  vertical-align: text-bottom;
+}
+@keyframes blink{ 50%{ opacity: 0; } }
+
+.composer{
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--border);
+}
+.prompt-glyph{ color: var(--amber); font-size: 15px; padding-bottom: 9px; }
+#input{
+  flex: 1;
+  resize: none;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 9px 12px;
+  max-height: 160px;
+}
+#input:focus{ outline: none; border-color: var(--amber-dim); }
+
+#sendBtn{
+  background: var(--amber);
+  color: #12100d;
+  border: none;
+  border-radius: var(--radius);
+  padding: 9px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+#sendBtn:disabled{ opacity: 0.35; cursor: default; }
+
+.foot{
+  padding: 10px 24px 18px;
+  font-size: 11px;
+  color: var(--amber-faint);
+  text-align: center;
+}
+
+@media (max-width: 480px){
+  .topbar, .screen, .composer, .foot{ padding-left: 14px; padding-right: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .cursor-blink, .dot.busy{ animation: none; }
+}

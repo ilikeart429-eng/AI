@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>termite — an AI that lives in your browser</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="crt">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-glyph">&gt;_</span>
+        <span class="brand-name">termite</span>
+      </div>
+      <div class="status" id="status">
+        <span class="dot" id="statusDot"></span>
+        <span id="statusText">not loaded</span>
+      </div>
+    </header>
+
+    <main class="screen">
+      <div class="boot" id="boot">
+        <p class="boot-line">a coding assistant that runs entirely in your browser.</p>
+        <p class="boot-line dim">no server. no API key. the model downloads once, then runs on your machine — even offline.</p>
+        <button id="loadBtn" class="load-btn">load the model (~350MB, once)</button>
+        <div class="progress-wrap" id="progressWrap" hidden>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-label" id="progressLabel">warming up…</div>
+        </div>
+      </div>
+
+      <div class="chat" id="chat" hidden></div>
+    </main>
+
+    <form class="composer" id="composer" hidden>
+      <span class="prompt-glyph">$</span>
+      <textarea id="input" placeholder="ask about your code…" rows="1"></textarea>
+      <button type="submit" id="sendBtn">run</button>
+    </form>
+
+    <footer class="foot">
+      <span>model: Qwen2.5-0.5B-Instruct · runs via WebGPU/WASM · everything stays on this device</span>
+    </footer>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
